@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>My HTML5 Gaming Applications</title>
+<script>
+var canvas;
+var ctx;
+var frame=0;
+var frames =[];
+var framerate=1000;
+window.onload=function(){
+var body;
+body=document.getElementById("body");
+canvas = document.createElement('canvas');
+ctx = canvas.getContext('2d');
+canvas.width = 1000;
+    canvas.height = 1000;
+body.appendChild(canvas);
+for(var i=0;i<2;i++)
+{
+	frames.push(new Image());
+	if(i%2==0)
+	frames[i].src='1.jpg';
+	else
+	frames[i].src='2.jpg';
+}
+setInterval(animate,framerate);
+};
+
+
+var animate=function()
+{
+	//alert("UYIYOI");
+	ctx.clearRect(0,0,1000,1000);
+	ctx.drawImage(frames[frame%2],0,0);
+	frame++;
+};
+</script>
+</head>
+<body id="body">
+</body>
+</html>

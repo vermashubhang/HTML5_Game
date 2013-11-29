@@ -1,0 +1,113 @@
+	var mydiv = document.getElementById('inner');
+	var drawrectanglebtn = document.getElementById('drawrectanglebtn');
+	var clearcanvasbtn = document.getElementById('clearcanvasbtn');
+	var canvasBg= document.getElementById('canvasBg');
+	var ctx = canvasBg.getContext('2d');
+	
+	var canvasJet= document.getElementById('canvasJet');
+	var ctxJet = canvasJet.getContext('2d');
+	var drawX = 0;
+	var drawY = 0;
+	clearcanvasbtn.addEventListener('click',clearcanvas,false);
+	drawrectanglebtn.addEventListener('click',drawrectangle,false);
+	var spriteimage = new Image();
+	var gamewidth = canvasBg.width;
+	var gameheight = canvasBg.height;
+	window.addEventListener('keydown',movedown,true);
+	spriteimage.src = ('sprite.png');
+	spriteimage.addEventListener('load',init,false);
+	
+	//canvasJet.addEventListener('keydown',movedown,true);
+	//var canvas = document.getElementById("canvasJet");
+//canvas.addEventListener( "keydown", movedown, true);
+	//mydiv.addEventListener('keyup',moveup,false);
+	
+function movedown(e)
+{
+
+	var srcX = 0;
+	var srcY = 500;
+	var width= 100;
+	var height = 40;
+	if(e.keyCode==40)
+	{
+		ctxJet.clearRect ( drawX-10 , drawY-10 , gamewidth , gamewidth );
+		ctxJet.drawImage(spriteimage,srcX,srcY,width,height,drawX+10,drawY+10,width,height);
+		//drawX +=10;
+		if(drawY+10<450)
+		drawY +=10;
+	}
+	else if(e.keyCode==38)
+	{
+		ctxJet.clearRect ( drawX-10 , drawY-10 , gamewidth , gameheight );
+		ctxJet.drawImage(spriteimage,srcX,srcY,width,height,drawX+10,drawY-10,width,height);
+		//drawX -=10;
+		if(drawY-10>10)
+		drawY -=10;
+	}
+	else if(e.keyCode==32)
+	{
+		//alert(e.keyCode);
+		setInterval(firebullet(drawX,drawY),1000);
+	}
+}
+
+function firebullet(drawX,drawY)
+{
+	var firex=drawX;
+	var firey=drawY;
+	var i=drawX;
+	for(i=0;i<800;i++)
+	{
+		drawbullet(drawX+i,drawY);
+		setTimeout(function() {
+		}, 1000);
+	}	
+	//ctxJet.drawImage(spriteimage,100,500,7,7,firex,firey,7,7);
+	//firey = firey +10;
+}
+function drawbullet(i,j)
+{
+		
+	ctxJet.drawImage(spriteimage,100,500,7,7,i,j,7,7);
+}
+
+
+function init()
+{
+	spritebg();
+	spriteJet();
+}
+	
+	
+	
+function spritebg()
+{
+	var srcX = 0;
+	var srcY = 0;
+	//drawX = 0;
+	//drawY = 0;
+	ctx.drawImage(spriteimage,srcX,srcY,gamewidth,gameheight,drawX,drawY,gamewidth,gameheight);
+}
+
+function spriteJet()
+{
+	var srcX = 0;
+	var srcY = 500;
+	var drawX = 10;
+	var drawY = 10;
+	var width= 100;
+	var height = 40;
+	ctxJet.drawImage(spriteimage,srcX,srcY,width,height,drawX,drawY,width,height);
+}
+
+function clearcanvas()
+{
+	ctx.fillStyle='#505050';
+	ctx.fillRect(20,100,50,200);
+}
+function drawrectangle()
+{
+	ctx.fillStyle='#303030';
+	ctx.fillRect(20,100,50,200);
+}
